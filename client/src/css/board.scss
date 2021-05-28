@@ -1,0 +1,241 @@
+$scrollBarHeight: 0px!important;
+
+::-webkit-scrollbar {
+  width: $scrollBarHeight;
+  height: $scrollBarHeight;
+}
+
+::-webkit-scrollbar-button {
+  width: $scrollBarHeight;
+  height: $scrollBarHeight;
+}
+
+.boardNavbar{
+    display:flex;
+    margin: 10px;
+}
+
+.navdetails{
+    margin-right: 15px;
+    background-color: rgba(255,255,255,0.8);
+    padding: 5px;
+    border-radius: 3px;
+    cursor: none;
+}
+.navdetails div{
+    background-color: rgba(255,255,255,0.5);
+    padding: 0px 8px;
+    font-size: 19px;
+}
+
+/* for menu */
+.button{
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+}
+.button:hover{
+    background-color: lightcoral;
+}
+.button div:hover{
+    background-color: rgba(255,255,255,0.8);
+    color: lightcoral;
+    border-radius: 4px;
+}
+.menu{
+    width:15.4vw;
+    position:absolute;
+    right: 0px;
+    border: 1px solid white;
+}
+
+/* for body of board */
+.boardcont{
+    margin: 0px;
+    display: flex;
+}
+.boardcont div{
+    margin: 0px;
+}
+
+.mainconts{
+  border: 1px solid darksalmon;
+  user-select: none;
+  white-space: nowrap;
+  margin-bottom: 8px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 8px;
+  width: 84vw;
+  height: 760px!important;
+}
+
+.mainconts .child{
+  width: 272px;
+  margin: 0 4px;
+  height: 100%;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+  overflow-y: auto;
+}
+
+.list{
+  background-color: #ebecf0;
+    border-radius: 6px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    position: relative;
+    white-space: normal;
+    border: 1px solid rgba(0,0,0,0.3);
+}
+
+.openbutton{
+  background-color:rgba(0,0,0,0.5);
+  border-radius: 8px;
+  padding: 2px 7px;
+  align-items:center;
+  display: flex;
+  color: white;
+  cursor: pointer;
+}
+.openbutton p{
+  height:fit-content;
+  margin: 4px 3px;
+}
+.openbutton:hover{
+  background-color:rgba(0,0,0,0.3);
+}
+
+.addListform{
+  margin: 7px auto;
+}
+.addListform input,.addcardform input{
+  padding:4px 7px;
+  margin-bottom: 4px;
+  border: 1px solid rgb(240, 128, 128);
+  border-radius: 4px;
+  outline: none;
+  width: 15.8rem;
+}
+.addListform div,.addcardform div{
+  display: flex;  
+  align-items:center;
+  margin-right: 10px;
+}
+.addbutton{
+  padding:4px 9px;
+  margin-right: 10px;
+  border-radius: 6px;
+  background-color:rgb(240, 128, 128);
+  opacity: 0.9;
+  z-index: 1000;
+  border: none;
+  cursor: pointer;
+  color: white;
+  width: fit-content;
+}
+.addbutton:hover{
+  opacity: 1  ;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0);
+  transition: 0.3s;
+}
+.closebutton{
+  color:rgb(173, 172, 172);
+  cursor: pointer;
+  width:fit-content;
+}
+.closebutton:hover{
+  color:black;
+}
+
+.items{
+  margin: 4px auto;
+  padding: 6px 10px;
+}
+.items .listtitle{
+  padding: 0px 5px;
+  margin-top: 3px;
+}
+.items .cards{
+  padding: 5px 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: 0.3s;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.items .cards:hover{
+  background-color: lightgray;
+}
+.items p{
+  margin: 0px;
+}
+.items .openbutton{
+  background-color: transparent;
+  color: rgb(173, 172, 172);
+  transition: 0.3s;
+}
+.items .openbutton:hover{
+  background-color: lightgray;
+  color: black;
+}
+
+// for discription in cards
+.cardDiscription{
+  position: absolute;
+  top: 25px;
+  padding: 40px;
+  left: 50%;
+  transform: translate(-50%,0);
+  z-index: 1000;
+}
+.discriptioncont{
+  background-color:white;
+  height: 55vw;
+  width: 80vh;
+  padding: 40px;
+  margin: auto;
+  border-radius: 6px;
+}
+.cardName b{
+  margin: 10px;
+}
+.cardName p{
+  margin-left: 40px;
+  margin-top: 3px;
+  font-size: 14px;
+  color:rgb(118, 118, 118);
+}
+.cardName span{
+  margin-left: 3px;
+  text-decoration: underline;
+}
+.cardName span:hover{
+  color:black;
+  cursor:pointer;
+}
+.des{
+  margin-top: 20px;
+  margin-right: 40px;
+  border: 1px solid darksalmon;
+  width: fit-content;
+}
+.dis b{
+  margin-left: 40px;
+}
+.dis input{
+  padding: 10px 5px;
+}
+.closeDis{
+  position: absolute;
+  right: 55px;
+  top: 55px;
+}
+
+
+.hide{
+  display: none;
+}
