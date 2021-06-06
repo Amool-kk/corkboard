@@ -8,7 +8,28 @@ const boardSchema = new mongoose.Schema({
     backgroundImageURL: String,
     listTitles: [{
         listtitle: String,
-        cards: [{cardname: String}]
+        cards: [{
+            cardname: String,
+            discription:String,
+        }]
+    }],
+    comments:[{
+        comment: String,
+        cardid: String,
+        usernames: String,
+        date: {
+            type: Date,
+            default: Date.now
+        }
+    }],
+    toDoList: [{
+        title: String,
+        cardid: String,
+        menus: [{
+            menu: String,
+            todoid: String,
+            done: Boolean
+        }]
     }],
     boardMember: [{
         member_id: {

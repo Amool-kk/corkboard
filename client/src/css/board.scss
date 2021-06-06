@@ -64,7 +64,7 @@ $scrollBarHeight: 0px!important;
   white-space: nowrap;
   margin-bottom: 8px;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: auto;
   padding-bottom: 8px;
   width: 84vw;
   height: 760px!important;
@@ -72,7 +72,7 @@ $scrollBarHeight: 0px!important;
 
 .mainconts .child{
   width: 272px;
-  margin: 0 4px;
+  margin: 0px 4px;
   height: 100%;
   box-sizing: border-box;
   display: inline-block;
@@ -87,7 +87,6 @@ $scrollBarHeight: 0px!important;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    max-height: 100%;
     position: relative;
     white-space: normal;
     border: 1px solid rgba(0,0,0,0.3);
@@ -151,7 +150,17 @@ $scrollBarHeight: 0px!important;
 .closebutton:hover{
   color:black;
 }
-
+.listmenu{
+  position:absolute;
+  right:10px;
+  cursor:pointer;
+  color: rgba(0, 0, 0,0.4 );
+  border-radius: 20px;
+}
+.listmenu:hover{
+  background-color: lightgray;
+  color: black;
+}
 .items{
   margin: 4px auto;
   padding: 6px 10px;
@@ -191,14 +200,16 @@ $scrollBarHeight: 0px!important;
   left: 50%;
   transform: translate(-50%,0);
   z-index: 1000;
+  
 }
 .discriptioncont{
-  background-color:white;
-  height: 55vw;
+  height: 800px;
+  overflow-y: auto;
   width: 80vh;
   padding: 40px;
   margin: auto;
   border-radius: 6px;
+  background-color:#f4f5f7;
 }
 .cardName b{
   margin: 10px;
@@ -219,22 +230,272 @@ $scrollBarHeight: 0px!important;
 }
 .des{
   margin-top: 20px;
-  margin-right: 40px;
-  border: 1px solid darksalmon;
-  width: fit-content;
+  margin-right: 0px;
+  // border: 1px solid darksalmon;
+  // position: absolute;
+  width:fit-content;
+  top: 9rem;
 }
 .dis b{
   margin-left: 40px;
 }
-.dis input{
-  padding: 10px 5px;
+.disInput{
+  padding: 7px 15px;
+  margin-left: 38px!important;
+  border: none;
+  background-color:rgba(9,30,66,.04);
+  outline-color: darksalmon;
+}
+.disInput:focus{
+  background-color:white;
+}
+.disbutton{
+  margin:10px 40px;
+  background-color: darksalmon;
+  width:fit-content;
+  padding: 5px 10px;
+  color:white;
+  border: 2px solid #e9967a;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.disbutton:hover{
+  background-color:white;
+  color:darksalmon;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0);
+}
+.deleteCard{
+  position: absolute;
+  bottom:70px;
+  right:70px;
+  background-color: rgba(255, 0, 0,0.5);
+  padding: 4px 8px;
+  color:white;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.deleteCard:hover{
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0);
+  background-color:rgba(255, 0, 0,0.7);
 }
 .closeDis{
   position: absolute;
   right: 55px;
   top: 55px;
 }
+.checklisttitilecont{
+  position: absolute;
+  top: 145px;
+  right: 3rem;
+  background-color: white;
+  padding: 0px 10px;
+}
+.checklisttitilecont .titleinputhead {
+  margin: 10px auto;
+  text-align: center;
+}
+.checklisttitilecont .titleinputhead p{
+  margin-bottom: 0px;
+}
+.checklisttitilecont .titleinputhead span{
+  position: absolute;
+  right: 2px;
+  color: lightgray;
+  cursor: pointer;
+}
+.checklisttitilecont .titleinputhead span:hover{
+  color: black;
+}
+.checklisttitilecont .titleinputcont p{
+  margin-top: 10px; 
+  margin-bottom: 2px;
+}
+.checklisttitilecont .titleinputcont input{
+  margin-left: 0px;
+  padding: 5px 10px;
+  border: 1px solid darksalmon;
+  border-radius: 5px;
+  outline: none;
+}
+.checklistbutton,.moveoptioncont{
+  position: absolute;
+  right: 70px;
+  top: 7rem;
+  cursor: pointer;
+  background-color:rgba(9,30,66,.04);
+  padding:5px 10px;
+}
+.checklistdelete{
+  cursor: pointer;
+  background-color:rgba(9,30,66,.04);
+  padding:5px 10px;
+  position: absolute;
+  right: 10rem;
+}
+.checklistbutton:hover,.checklistdelete:hover,.moveoptioncont:hover{
+  background-color:lightgray;
+}
+.checklisthead .headicon{
+  margin-right: 0.8rem;
+}
+.checklisthead{
+  position: relative;
+}
+.checklistmeter{
+  margin-top: 10px;
+  font-size: 14px;
+  display:flex;
+}
+.checklistmeter span{
+  padding: 4px 13.8rem;
+  background-color:rgba(9,30,66,.04);
+  height:2px;
+  margin-left: 20px;
+  margin-top: 8px;
+  border-radius: 10px;
+}
+.checklistadd{
+  margin-left: 40px;
+}
+.checklistinput,.commentinput{
+  padding: 4px 7px;
+  margin-bottom: 4px;
+  border: 1px solid lightcoral;
+  border-radius: 4px;
+  outline: none;
+  width: 27.7rem;
+}
+#buttonforadd{
+  margin-left: 40px;
+  background-color:rgba(9,30,66,.04);
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  width: fit-content;
+}
+#buttonforadd:hover{
+  background-color:lightgray;
+}
+.itemaddbutton{
+  margin-left: 4px;
+}
+.commenthead span{
+  margin-left: 11px;
+}
+.commentinput,.commentbutton{
+  margin-left: 40px;
+}
+.commentcont{
+  margin-left: 40px;
+  width:70%;
+  position: relative;
+}
+.comments div{
+  margin: 5px;
+}
+.commenttime{
+  font-size: 12px;
+  margin-left: 10px;
+  color: rgb(68, 68, 68);
+}
+.commentDelete{
+  font-size: 12px;
+  margin-left: 10px;
+  color: rgb(68, 68, 68);
+  cursor: pointer;
+}
+.commentDelete:hover{
+  color:black;
+  text-decoration: underline;
+}
+.commentcard{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+.moveoptioncont{
+  top: 10rem;
+  width: 111px;
+}
+.moveoptioncont span{
+  margin-right: 10px;
+}
+.moveoption{
+  position: absolute;
+  top: 12rem;
+  right: 3rem;
+  background-color: white;
+  padding:10px;
+  width: 15rem;
+}
+.moveoptionhead{
+  margin: 0px auto 3px auto;
+  text-align: center;
+}
+.moveoptionhead p{
+  margin-bottom: 0px;
+}
+.moveoptionhead span{
+  position: absolute;
+  right: 2px;
+  color: lightgray;
+  cursor: pointer;
+}
+.moveoptionhead span:hover{
+  color: black;
+}
+.moveoptionbody p{
+  font-size: 14px;
+  margin-top: 10px;
+  margin-bottom: 4px;
+}
+.moveoptionbody select{
+  width: 98%;
+  margin-bottom: 10px;
+  padding:5px 10px;
+  border: 1px solid darksalmon;
+  background-color: white;
+  outline: none;
+  border-radius: 4px;
+}
 
+// for list menu cont 
+.listmencont{
+  position: absolute;
+  color:black;
+  z-index: 1100;
+  
+  background-color:#f4f5f7;
+}
+.listmencont .head{
+  text-align:center;
+  border-bottom: 1px solid lightgray;
+  padding-bottom: 10px;
+  padding: 13px 10px;
+}
+.listmencont .head p{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 3px;
+}
+.closem{
+  background-color: white;
+  color: black;
+}
+.listmencont ul{
+  list-style: none;
+  padding-left: 0px;
+}
+.listmencont li{
+  margin: 10px auto;
+  cursor: pointer;
+  padding: 8px 14px;
+  width: 100%;
+}
+.listmencont li:hover{
+  background-color: rgba(9,30,66,.04);
+}
 
 .hide{
   display: none;
