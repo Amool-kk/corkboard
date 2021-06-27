@@ -339,18 +339,48 @@ router.post('/add-to-do-menu', auth, async (req, res) => {
     }
 
 })
+// router.post('/create-card', auth, async (req, res) => {
+//     console.log(req.body.listtitle[0], "this is create-card")
+//     const { cardname, listtitle, Id } = req.body
+//     const whichlist = await addBoard.find({ "listTitles.listtitle": listtitle })
+//     console.log(whichlist, "before")
+
+//     try {
+//         const updatecard = await addBoard.updateOne(
+//             { _id: Id, "listTitles.listtitle": listtitle },
+//             {
+//                 $push: {
+//                     "listTitles.$.cards": { cardname: cardname, discription: "" }
+//                 }
+//             }
+//         )
+
+//         console.log(whichlist, "after")
+//         res.status(200).json({ message: "your card created" })
+//     } catch (error) {
+//         console.log(error, "in create-card")
+//         res.status(422).json({ error: err })
+//     }
+// })
+
 
 router.post('/set-value', auth, async (req, res) => {
 
     console.log(req.body)
-    const { menu, todoid, value } = req.body
+    const { menu, todoid, value, menuID } = req.body
+
+    const whichtolist = await addBoard.find({ "toDoList._id": todoid })
+    console.log(whichtolist[0].toDoList[1])
 
     try {
         const setvalue = await addBoard.updateOne(
-            { "toDoList._id": todoid },
+            {
+                "toDoList._id": todoid,
+                "toDoList.menus._id":menuID
+            },
             {
                 $set: {
-                    "toDoList.$.menus": { menu: menu, done: value, todoid: todoid }
+                    "toDoList.$.menus":{ menu: menu, done: value, todoid: todoid}
                 }
             }
         )
@@ -361,14 +391,39 @@ router.post('/set-value', auth, async (req, res) => {
     }
 })
 
+// router.post('/add-discription', auth, async (req, res) => {
+//     console.log(req.body, "discription part")
+//     const { cardname, listtitle, Id, discription } = req.body
+
+//     const whichcard = await addBoard.find({ "listTitles.cards.cardname": cardname })
+//     console.log(whichcard, "before save")
+
+//     try {
+//         const adddiscription = await addBoard.updateOne(
+//             { _id: Id, "listTitles.cards.cardname": cardname },
+//             {
+//                 $set: {
+//                     "listTitles.$.cards": { cardname: cardname, discription: discription }
+//                 }
+//             }
+//         )
+//         const whichcard = await addBoard.find({ "listTitles.cards.cardname": cardname })
+//         console.log(whichcard, "after save")
+//         res.status(200).json({ message: "your discription is saved" })
+//     } catch (err) {
+//         console.log(err, "in add discription of cards")
+//         res.status(422).json({ error: err })
+//     }
+// })
+
 router.post('/move-cards', auth, async (req, res) => {
     console.log(req.body)
 
     const { destinationPosition, destinationList, sourceList, sourceCard, listIndex, cardIndex } = req.body
 
     const whichcard = await addBoard.find({ "listTitles.cards._id": sourceCard })
-    console.log(whichcard[0])
-    const copycard = whichcard[0]
+    // console.log(whichcard[0].listTitles[listIndex].cards[cardIndex])
+    const copycard = whichcard[0].listTitles[listIndex].cards[cardIndex]
     console.log(copycard)
 
     try {
@@ -384,7 +439,8 @@ router.post('/move-cards', auth, async (req, res) => {
             { "listTitles._id": destinationList },
             {
                 $push: {
-                    "listTitles.$.cards": copycard[0]
+                    "listTitles.$.cards": copycard,
+                    $position: destinationPosition
                 },
             }
         )

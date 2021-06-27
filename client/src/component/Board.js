@@ -56,7 +56,7 @@ const Board = (props) => {
     });
 
     const [moveSend, setMoveSend] = useState({
-        sourceCard: "",destinationList: "", destinationPosition: "", sourceList: "", listIndex: "",cardIndex: ""
+        sourceCard: "", destinationList: "", destinationPosition: "", sourceList: "", listIndex: "", cardIndex: ""
     })
 
     const [list, setList] = useState({
@@ -141,7 +141,7 @@ const Board = (props) => {
         } catch (error) {
             console.log(error)
         }
-    }, [])
+    })
 
     const addList = async (e) => {
         e.preventDefault()
@@ -299,7 +299,7 @@ const Board = (props) => {
         setcheckListTitle({ ...checkListTitle, ["cardId"]: listData[i].cards[j]._id })
         // console.log(commentData, listData[i].cards[j]._id, commentcheckId)
         console.log(listData, i, j)
-        setMoveSend({...moveSend, ["listIndex"]:i,["cardIndex"]: j, ["sourceList"]: listData[i]._id,["sourceCard"]: listData[i].cards[j]._id})
+        setMoveSend({ ...moveSend, ["listIndex"]: i, ["cardIndex"]: j, ["sourceList"]: listData[i]._id, ["sourceCard"]: listData[i].cards[j]._id })
     }
 
 
@@ -548,9 +548,9 @@ const Board = (props) => {
 
         if (e.target.checked === true) {
             console.log(e.target.name, e.target.checked, e.target.parentNode.children[1].innerHTML)
-            let details = { "todoid": e.target.name, "menu": e.target.parentNode.children[1].innerHTML, "value": e.target.checked }
+            let details = { "todoid": e.target.name, "menu": e.target.parentNode.children[1].innerHTML, "value": e.target.checked, "menuID" : e.target.className }
 
-            const { value, menu, todoid } = details
+            const { value, menu, todoid , menuID} = details
 
             const res = await fetch('http://localhost:5000/set-value', {
                 method: 'POST',
@@ -559,7 +559,7 @@ const Board = (props) => {
                 },
                 credentials: "include",
                 body: JSON.stringify({
-                    value, todoid, menu
+                    value, todoid, menu, menuID
                 })
             })
             const result = await res.json()
@@ -571,16 +571,18 @@ const Board = (props) => {
                     console.log("changed")
                     let html = `<del>${e.target.parentNode.children[1].innerHTML}</del>`
                     e.target.parentNode.children[1].innerHTML = html
+                    e.target.checked = true
                 } else {
                     console.log("not changed")
+                    e.target.checked = false
                     e.target.parentNode.children[1].innerHTML = menu
                 }
             }
         } else {
             console.log(e.target.name, e.target.checked, e.target.parentNode.children[1].children[0].innerHTML)
-            let details = { "todoid": e.target.name, "menu": e.target.parentNode.children[1].children[0].innerHTML, "value": e.target.checked }
+            let details = { "todoid": e.target.name, "menu": e.target.parentNode.children[1].children[0].innerHTML, "value": e.target.checked ,"menuID" : e.target.className}
 
-            const { value, menu, todoid } = details
+            const { value, menu, todoid , menuID} = details
 
             const res = await fetch('http://localhost:5000/set-value', {
                 method: 'POST',
@@ -589,7 +591,7 @@ const Board = (props) => {
                 },
                 credentials: "include",
                 body: JSON.stringify({
-                    value, todoid, menu
+                    value, todoid, menu,menuID
                 })
             })
             const result = await res.json()
@@ -598,12 +600,14 @@ const Board = (props) => {
             } else {
                 console.log(result)
                 if (value == true) {
-                    console.log("changed")
+                    console.log("not changed")
                     let html = `<del>${e.target.parentNode.children[1].innerHTML}</del>`
                     e.target.parentNode.children[1].innerHTML = html
+                    
                 } else {
-                    console.log("not changed")
+                    console.log("changed")
                     e.target.parentNode.children[1].innerHTML = menu
+                    e.target.checked = false
                 }
             }
         }
@@ -616,17 +620,17 @@ const Board = (props) => {
     const movecards = async () => {
         console.log(document.querySelector('.whichlist').value)
         console.log(document.querySelector('.whichposition').value)
-       
-        const {destinationPosition,destinationList,sourceList,sourceCard,listIndex,cardIndex} = moveSend;
 
-        const res = await fetch('http://localhost:5000/move-cards',{
+        const { destinationPosition, destinationList, sourceList, sourceCard, listIndex, cardIndex } = moveSend;
+
+        const res = await fetch('http://localhost:5000/move-cards', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
             },
             credentials: "include",
             body: JSON.stringify({
-                destinationList,destinationPosition,sourceList,sourceCard,listIndex,cardIndex
+                destinationList, destinationPosition, sourceList, sourceCard, listIndex, cardIndex
             })
         })
 
@@ -634,7 +638,7 @@ const Board = (props) => {
 
         if (res.status === 422 || !result) {
             window.alert("Invalid Details")
-        }else{
+        } else {
             document.querySelector('.moveoption').classList.add('hide')
         }
     }
@@ -745,12 +749,12 @@ const Board = (props) => {
                                         {info.menus.map((item, j) => {
                                             if (item.todoid === info._id && item.done === true) {
                                                 return <ul key={j} style={{ listStyle: "none" }} >
-                                                    <li onClick={(e) => checkbox(e)}><input style={{ cursor: 'pointer' }} checked={item.done} name={item.todoid} type="checkbox" value={item.done} style={{ marginRight: '10px' }} />
-                                                        <del><span> {item.menu}</span></del>  </li>
+                                                    <li onClick={(e) => checkbox(e)}><input style={{ cursor: 'pointer' }} className={item._id} checked={item.done} name={item.todoid} type="checkbox" value={item.done} style={{ marginRight: '10px' }} />
+                                                        <del><span>{item.menu}</span></del>  </li>
                                                 </ul>
                                             } if (item.todoid === info._id && item.done === false) {
                                                 return <ul key={j} style={{ listStyle: "none" }} >
-                                                    <li onClick={(e) => checkbox(e)}><input style={{ cursor: 'pointer' }} checked={item.done} name={item.todoid} type="checkbox" value={item.done} style={{ marginRight: '10px' }} />
+                                                    <li onClick={(e) => checkbox(e)}><input style={{ cursor: 'pointer' }} className={item._id} checked={item.done} name={item.todoid} type="checkbox" value={item.done} style={{ marginRight: '10px' }} />
                                                         <span> {item.menu} </span> </li>
                                                 </ul>
                                             }
@@ -848,7 +852,7 @@ const Board = (props) => {
                             </div>
                             <div className="moveoptionindex">
                                 <span>Position</span>
-                                <select className="whichposition" onClick={() =>{ setMoveSend({...moveSend,["destinationPosition"]: document.querySelector('.whichposition').value,["destinationList"]:document.querySelector('.whichlist').value})}}>
+                                <select className="whichposition" onClick={() => { setMoveSend({ ...moveSend, ["destinationPosition"]: document.querySelector('.whichposition').value, ["destinationList"]: document.querySelector('.whichlist').value }) }}>
                                     {moveData.map((info, i) => {
                                         console.log(info)
                                         return <>

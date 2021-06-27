@@ -1,5 +1,5 @@
-import React,{useReducer, createContext,useState} from 'react'
-import { Route,Switch } from 'react-router-dom'
+import React, { useReducer, createContext, useState } from 'react'
+import { Route, Switch } from 'react-router-dom'
 import './App.css'
 import Navbar from './component/Navbar'
 import Home from './component/Home'
@@ -11,16 +11,16 @@ import Board from './component/Board'
 import ScaleLoader from 'react-spinners'
 
 
-import {initialState,reducer} from '../src/useReducer'
+import { initialState, reducer } from '../src/useReducer'
 
- //contextAPI
- export const UserContext = createContext();
+//contextAPI
+export const UserContext = createContext();
 
 const Rounting = () => {
 
-  const [loading,setLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
 
-  window.addEventListener("load",()=>{
+  window.addEventListener("load", () => {
     console.log("loading")
     setLoading(true)
   })
@@ -59,7 +59,7 @@ function App() {
   return (
     <>
       <div className="App" id="app">
-        <UserContext.Provider value={{state,dispatch}}>
+        <UserContext.Provider value={{ state, dispatch }}>
 
           <Navbar></Navbar>
           <Rounting></Rounting>

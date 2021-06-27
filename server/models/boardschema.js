@@ -19,7 +19,7 @@ const boardSchema = new mongoose.Schema({
         usernames: String,
         date: {
             type: Date,
-            default: Date.now
+            default: new Date
         }
     }],
     toDoList: [{
