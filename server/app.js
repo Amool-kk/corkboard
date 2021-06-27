@@ -30,13 +30,14 @@ app.use(express.urlencoded({ extended: true }))
 app.use(require('./router/router'))
 
 
-const port = process.env.PORT;
+if (process.env.NODE_ENV == 'production') {
+    app.use(express.static("client/build"))
+}
+
+
+const port = process.env.PORT || 5000;
 
 
 app.listen(port,()=>{
     console.log(`Connection is done at ${port}`)
 })
-
-
-// 0Uo7brfcyfvfmQGd
-// mongodb+srv://corkboard:<password>@cluster0.qb2lr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
